@@ -1,12 +1,15 @@
 const express = require('express')
 const app = express()
+const MongoClient = require('mongodb').MongoClient
 
+var db_url = 'mongodb://localhost:27017';
+var db;
 
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-    res.setHeader('Access-Control-Allow-Origin', 'http://salviha.us');
+    //res.setHeader('Access-Control-Allow-Origin', 'http://salviha.us');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -25,7 +28,25 @@ app.use(function (req, res, next) {
 app.get('/api/', (req, res) => res.send('Hello World!'))
 
 app.post('/api/user/create', (req, res) => {
-	 res.send(JSON.stringify({body: 'Got a POST request'}));
+	 var cursor = db.collection('salvihaus').insertOne({
+		 username: req.name,
+		 password: req.password,
+		 email: req.email,
+		 createdAt: Date.now()			
+	 });
+	 
+	  var cursor = db.collection('salvihaus').find().toArray((err, results) => {res.send(results);});
+
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+
+MongoClient.connect(db_url, (err, client) => {
+	  if (err) return console.log(err);
+	  db = client.db('salvihaus');
+	  db.createCollection("users", {
+		  capped: false,
+		  autoIndexId: true
+	  });
+	  app.listen(3000, () => console.log('Example app listening on port 3000!'))
+})
+

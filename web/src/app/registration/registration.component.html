@@ -1,4 +1,22 @@
-<p>
-  registration works!
-  <button (click)="register()">register</button>
-</p>
+<div class="container">
+	<div class="row">
+		<div class="col-4">
+		</div>
+		<div class="col-4">
+			<form>
+				<label>Username:</label>
+				<input type="text" class="form-control" id="username">
+				<label>Password:</label>
+				<input type="password" class="form-control" id="pw1">
+				<label>(Verify) Password:</label>
+				<input type="password" class="form-control" id="pw2">
+				<label>Email:</label>
+				<input type="text" class="form-control" id="email">
+				<button class="btn btn-success" (click)="register()">Submit</button>
+				<button class="btn" (click)="clear()">Clear</button>
+			</form>
+		</div>
+		<div class="col-4">
+		</div>
+	</div>
+</div>

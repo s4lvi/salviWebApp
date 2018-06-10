@@ -1,3 +1,4 @@
+import { UserModel } from './model/user';
 import { RegistrationService } from './registration.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,8 +18,12 @@ export class RegistrationComponent implements OnInit {
   }
   
   register() {
-    this.service.postRegistrationInfo().subscribe(o => {
-      console.log('subscribed');
+    const user: UserModel  = {
+      username: "test",
+      password: "test",
+      email: "test",
+    }
+    this.service.postRegistrationInfo(user).subscribe(o => {
       console.log(o);
     });
   }

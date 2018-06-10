@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { HttpModule } from '@angular/http';
 
-
 const appRoutes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'registration', component: RegistrationComponent }
