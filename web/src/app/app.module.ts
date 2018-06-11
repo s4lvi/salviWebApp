@@ -11,7 +11,8 @@ import { UsersComponent } from './users/users.component';
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'registration', component: RegistrationComponent }
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'users', component: UsersComponent }
 ];
 @NgModule({
   declarations: [

@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
+const bodyParser = require('body-parser')
 
 var db_url = 'mongodb://localhost:27017';
 var db;
@@ -25,17 +26,24 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.get('/api/', (req, res) => res.send('Hello World!'))
 
-app.post('/api/user/create', (req, res) => {
-	 var cursor = db.collection('salvihaus').insertOne({
-		 username: req.username,
-		 password: req.password,
-		 email: req.email,
+app.get('/api/users/', (req, res) => {
+	  var cursor = db.collection('users').find().toArray((err, results) => {res.send(results);});
+});
+
+app.post('/api/users/create', (req, res) => {
+	 var cursor = db.collection('users').insertOne({
+		 username: req.body.username,
+		 password: req.body.password,
+		 email: req.body.email,
 		 createdAt: Date.now()			
 	 });
 	 
-	  var cursor = db.collection('salvihaus').find().toArray((err, results) => {res.send(results);});
+	 res.send(JSON.stringify({body: "User created"}));
 
 });
 
