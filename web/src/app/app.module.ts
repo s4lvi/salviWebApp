@@ -6,6 +6,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { UsersComponent } from './users/users.component';
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent },
@@ -15,11 +17,13 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     RegistrationComponent,
-    LandingComponent
+    LandingComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     RouterModule.forRoot(
       appRoutes,
     )

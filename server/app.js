@@ -29,7 +29,7 @@ app.get('/api/', (req, res) => res.send('Hello World!'))
 
 app.post('/api/user/create', (req, res) => {
 	 var cursor = db.collection('salvihaus').insertOne({
-		 username: req.name,
+		 username: req.username,
 		 password: req.password,
 		 email: req.email,
 		 createdAt: Date.now()			

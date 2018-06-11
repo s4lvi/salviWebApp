@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
+  user: UserModel = new UserModel();
   constructor(private service: RegistrationService) { 
     this.service = service;
   }
@@ -18,12 +19,8 @@ export class RegistrationComponent implements OnInit {
   }
   
   register() {
-    const user: UserModel  = {
-      username: "test",
-      password: "test",
-      email: "test",
-    }
-    this.service.postRegistrationInfo(user).subscribe(o => {
+    console.log(this.user);
+    this.service.postRegistrationInfo(this.user).subscribe(o => {
       console.log(o);
     });
   }

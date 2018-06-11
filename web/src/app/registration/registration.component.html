@@ -5,13 +5,13 @@
 		<div class="col-4">
 			<form>
 				<label>Username:</label>
-				<input type="text" class="form-control" id="username">
+				<input type="text" class="form-control" [(ngModel)]="user.username" name="username">
 				<label>Password:</label>
-				<input type="password" class="form-control" id="pw1">
+				<input type="password" class="form-control" [(ngModel)]="user.password" name="pw1">
 				<label>(Verify) Password:</label>
 				<input type="password" class="form-control" id="pw2">
 				<label>Email:</label>
-				<input type="text" class="form-control" id="email">
+				<input type="text" class="form-control" [(ngModel)]="user.email" name="email">
 				<button class="btn btn-success" (click)="register()">Submit</button>
 				<button class="btn" (click)="clear()">Clear</button>
 			</form>
