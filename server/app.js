@@ -33,7 +33,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/api/', (req, res) => res.send('Hello World!'))
 
 app.get('/api/users/', (req, res) => {
-	  var cursor = db.collection('users').find().toArray((err, results) => {res.send(results);});
+	  var cursor = db.collection('users').find().toArray((err, results) => {
+		  users = [];
+	  	  for (var r in results) {
+	  		  users.push({
+	  			id: results[r]._id,
+	  			username: results[r].username,
+	  			email: results[r].email,
+	  			createdAt: results[r].createdAt
+	  		  });
+	  	  }
+		  res.send(JSON.stringify(users));
+	  });
 });
 
 app.post('/api/users/create', (req, res) => {
