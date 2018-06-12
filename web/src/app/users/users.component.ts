@@ -20,11 +20,16 @@ export class UsersComponent implements OnInit {
         this.users.push({
           username: u[user].username,
           email: u[user].email,
-          createdAt: u[user].createdAt
+          createdAt: u[user].createdAt,
+          id: u[user].id
         });
       }
       console.log(this.users);
     });
+  }
+  
+  delete(userId: string) {
+    this.service.deleteUser(userId).subscribe();
   }
 
 }

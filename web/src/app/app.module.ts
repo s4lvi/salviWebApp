@@ -8,18 +8,25 @@ import { LandingComponent } from './landing/landing.component';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
+import { MenuComponent } from './menu/menu.component';
+import { GameComponent } from './game/game.component';
+import { HelpComponent } from './help/help.component';
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'users', component: UsersComponent }
+  { path: 'users', component: UsersComponent },
+  { path: 'game', component: GameComponent }
 ];
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LandingComponent,
-    UsersComponent
+    UsersComponent,
+    MenuComponent,
+    GameComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

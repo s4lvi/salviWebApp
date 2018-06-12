@@ -1,2 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+body {
+	background-color: black;
+	color: #0f0;
+	font-family: monospace;
+}
+
+.form-control {
+	border: 1px #0f0 solid;
+	background-color: black;
+}
+
+.btn {
+	border: 1px #0f0 solid;
+	background-color: black;
+	color: #0f0;
+}
+
+.btn:hover {
+	background-color: #0f0;
+	color: #000;
+}
