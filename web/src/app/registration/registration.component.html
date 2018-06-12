@@ -1,22 +1,31 @@
 <div class="container">
-	<div class="row">
-		<div class="col-4">
+	<div *ngIf="registered=='unregistered'">
+		<div class="row">
+			<div class="col-4">
+			</div>
+			<div class="col-4">
+				<form [formGroup]="form" (submit)="register()" #regForm="ngForm">
+					<label>Username:</label>
+					<p class="error" *ngIf="form.get('username').hasError('required') && regForm.submitted"> * username is required</p>
+					<input type="text" class="form-control" formControlName="username">
+					<label>Password:</label>
+					<p class="error" *ngIf="form.get('password').hasError('required') && regForm.submitted"> * password is required</p>
+					<input type="password" class="form-control" formControlName="password">
+					<label>Email:</label>
+					<p class="error" *ngIf="form.get('email').hasError('required') && regForm.submitted"> * email is required</p>
+					<input type="text" class="form-control" formControlName="email">
+					<button class="btn" type="submit">Submit</button>
+					<button class="btn" (click)="clear()">Clear</button>
+				</form>
+			</div>
+			<div class="col-4">
+			</div>
 		</div>
-		<div class="col-4">
-			<form>
-				<label>Username:</label>
-				<input type="text" class="form-control" [(ngModel)]="user.username" name="username">
-				<label>Password:</label>
-				<input type="password" class="form-control" [(ngModel)]="user.password" name="pw1">
-				<label>(Verify) Password:</label>
-				<input type="password" class="form-control" id="pw2">
-				<label>Email:</label>
-				<input type="text" class="form-control" [(ngModel)]="user.email" name="email">
-				<button class="btn btn-success" (click)="register()">Submit</button>
-				<button class="btn" (click)="clear()">Clear</button>
-			</form>
-		</div>
-		<div class="col-4">
-		</div>
+	</div>
+	<div *ngIf="registered=='registered'">
+		<p>registration success!</p>
+	</div>
+	<div *ngIf="registered=='registration-error'">
+		<p>there was a problem with your registration (username probably exists already)</p>
 	</div>
 </div>

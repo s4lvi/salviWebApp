@@ -6,6 +6,13 @@ body {
 	font-family: monospace;
 }
 
+hr {
+	border-color: #0f0;
+}
+
+.dashed {
+	border-style: dashed;
+}
 .form-control {
 	border: 1px #0f0 solid;
 	background-color: black;

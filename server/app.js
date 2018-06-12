@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 
 var db_url = 'mongodb://localhost:27017';
 var db;
+var bcrypt = require('bcrypt');
 
 app.use(function (req, res, next) {
 
@@ -36,15 +37,21 @@ app.get('/api/users/', (req, res) => {
 });
 
 app.post('/api/users/create', (req, res) => {
-	 var cursor = db.collection('users').insertOne({
-		 username: req.body.username,
-		 password: req.body.password,
-		 email: req.body.email,
-		 createdAt: Date.now()			
-	 });
-	 
-	 res.send(JSON.stringify({body: "User created"}));
-
+    bcrypt.hash(req.body.password, 10, function(err, hash) {
+    	db.collection('users').count({username: req.body.username}, function(err, count) {
+	    	if (count == 0) {
+	        	var cursor = db.collection('users').insertOne({
+	        		username: req.body.username,
+	    		 	password: hash,
+	    		 	email: req.body.email,
+	    		 	createdAt: Date.now()			
+	        	});
+	        	res.status(200).send(JSON.stringify({body: "User created"}));
+	    	} else {
+	        	res.status(409).send(JSON.stringify({body: "Username already exists"}));
+	    	}
+    	});
+    });
 });
 
 
@@ -57,4 +64,13 @@ MongoClient.connect(db_url, (err, client) => {
 	  });
 	  app.listen(3000, () => console.log('Example app listening on port 3000!'))
 })
+
+
+exports.comparePassword = function(plainPass, hashword, callback) {
+   bcrypt.compare(plainPass, hashword, function(err, isPasswordMatch) {   
+       return err == null ?
+           callback(null, isPasswordMatch) :
+           callback(err);
+   });
+};
 

@@ -1,10 +1,23 @@
 <div *ngIf="users.length > 0">
+	  <div class="row">
+		  <div class="col-4">
+		  	username
+		  </div>
+		  <div class="col-4">
+		  	email
+		  </div>
+		  <div class="col-4">
+		  	created at
+		  </div>
+		 </div>
+		 <hr class="dashed">
 	<div *ngFor="let u of users">
 	  <div class="row">
 		  <div class="col-4">
+		  	{{u.username}}
 		  </div>
 		  <div class="col-4">
-		  	{{u.username}}
+		  	{{u.email}}
 		  </div>
 		  <div class="col-4">
 		  	{{u.createdAt | date}}
