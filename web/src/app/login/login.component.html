@@ -1,0 +1,23 @@
+<div class='container'>
+	<div class="row">
+		<div class="col-lg-4 col-md-2">
+		</div>
+		<div class="col-lg-4 col-md-8 col-sm-12">
+			<form [formGroup]="form" (submit)="login()" #loginForm="ngForm">
+				<label>Username:</label>
+				<p class="error" *ngIf="form.get('username').hasError('required') && loginForm.submitted"> * username is required</p>
+				<input type="text" class="form-control" formControlName="username">
+				<label>Password:</label>
+				<p class="error" *ngIf="form.get('password').hasError('required') && loginForm.submitted"> * password is required</p>
+				<input type="password" class="form-control" formControlName="password">
+				<button class="btn" type="submit">Login</button>
+				<a class="btn" [routerLink]="['../registration']">Register</a>
+			</form>
+		</div>
+		<div class="col-lg-4 col-md-2">
+		</div>
+	</div>
+	<div *ngIf="loginError==true" class="row error-text">
+		something was wrong with your login info
+	</div>
+</div>

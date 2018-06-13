@@ -30,7 +30,25 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/api/', (req, res) => res.send('Hello World!'))
+app.get('/api/', (req, res) => res.send('Hello World!'));
+
+app.post('/api/login/', (req, res) => {
+	var cursor = db.collection('users').find({username: req.body.username}).toArray((err, data) => {
+		if (data[0] != null) {
+			 bcrypt.compare(req.body.password, data[0].password, function(err, isPasswordMatch) {   
+			       if (isPasswordMatch) {
+			    	   var token = Math.random().toString(36).substr(2) ;
+			    	   db.collection('users').updateOne({username: req.body.username}, { $set : {lastLogin: Date.now(), token: token}}, function(err2, res2) {
+				    	   res.status(200).send(JSON.stringify({token: token}));
+			    	   });
+			       }
+			 });
+			
+		} else {
+			res.status(404).send();
+		}
+	});
+});
 
 app.get('/api/users/', (req, res) => {
 	  var cursor = db.collection('users').find().toArray((err, results) => {

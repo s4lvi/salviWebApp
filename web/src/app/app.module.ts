@@ -11,12 +11,14 @@ import { UsersComponent } from './users/users.component';
 import { MenuComponent } from './menu/menu.component';
 import { GameComponent } from './game/game.component';
 import { HelpComponent } from './help/help.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'users', component: UsersComponent },
-  { path: 'game', component: GameComponent }
+  { path: 'game', component: GameComponent },
+  { path: 'login', component: LoginComponent }
 ];
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     UsersComponent,
     MenuComponent,
     GameComponent,
-    HelpComponent
+    HelpComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

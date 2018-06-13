@@ -23,6 +23,12 @@ export class UsersService {
     return this.http.get(environment.serverUrl + '/api/users/')
       .map((res: Response) => res.json());
   }
+    
+  login(user: UserModel): Observable<Object> {
+    var userReq = JSON.stringify(user);
+    return this.http.post(environment.serverUrl + '/api/login/', userReq, this.options)
+      .map((res: Response) => res.json());
+  }
   
   deleteUser(userId: string): Observable<Object> {
     return this.http.get(environment.serverUrl + '/api/users/' + userId + '/delete')

@@ -28,3 +28,7 @@ hr {
 	background-color: #0f0;
 	color: #000;
 }
+
+.error-text {
+	color: #f00;
+}
