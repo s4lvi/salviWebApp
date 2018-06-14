@@ -2,6 +2,8 @@ import { GameService } from './game.service';
 import { MessageModel } from './model/message';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'app-game',
@@ -23,8 +25,12 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.refreshMessages();
-        this.scrollToBottom();
+    let timer = Observable.timer(1000,2000);
+    timer.subscribe(t => {
+      this.refreshMessages();
+      this.scrollToBottom();
+      return 0;
+    });
   }
     
   ngAfterViewChecked() {
