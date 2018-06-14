@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
 
 var db_url = 'mongodb://localhost:27017';
 var db;
@@ -50,6 +51,21 @@ app.post('/api/login/', (req, res) => {
 	});
 });
 
+app.post('/api/login/check', (req, res) => {
+	var cursor = db.collection('users').find({username: req.body.username}).toArray((err, data) => {
+		if (data[0] != null) {
+			if (data[0].token == req.body.token) {
+				res.status(200).send();
+			}
+		} else {
+			res.status(404).send();
+		}
+	});
+});
+
+/*
+ * USERS
+ */
 app.get('/api/users/', (req, res) => {
 	  var cursor = db.collection('users').find().toArray((err, results) => {
 		  users = [];
@@ -63,6 +79,21 @@ app.get('/api/users/', (req, res) => {
 	  	  }
 		  res.send(JSON.stringify(users));
 	  });
+});
+
+app.delete('/api/users/:id', (req, res, next) => {
+	db.collection('users').find({_id: req.params.id}, function(err, obj) {
+    	if (!err) {
+        	var cursor = db.collection('users').deleteOne({
+        		_id: mongoose.mongo.ObjectId(req.params.id)
+        	}, function(err2, obj) {
+        		if (err2) res.status(200).send(JSON.stringify({body: err2}));
+            	res.status(200).send(JSON.stringify({body: "User deleted"}));
+        	});
+    	} else {
+        	res.status(404).send(JSON.stringify({body: "User not found"}));
+    	}
+	});
 });
 
 app.post('/api/users/create', (req, res) => {
@@ -81,6 +112,35 @@ app.post('/api/users/create', (req, res) => {
 	    	}
     	});
     });
+});
+
+
+
+/*
+ * MESSAGES
+ */
+app.get('/api/messages/', (req, res) => {
+	  var cursor = db.collection('messages').find().sort( { createdAt: 1 } ).toArray((err, results) => {
+		  messages = [];
+	  	  for (var r in results) {
+	  		  messages.push({
+	  			id: results[r]._id,
+	  			messageType: results[r].messageType,
+	  			message: results[r].message,
+	  			createdAt: results[r].createdAt
+	  		  });
+	  	  }
+		  res.send(JSON.stringify(messages));
+	  });
+});
+
+app.post('/api/messages/', (req, res) => {
+	var cursor = db.collection('messages').insertOne({
+		messageType: 'user',
+		message: req.body.message,
+	 	createdAt: Date.now()			
+	});
+	res.status(200).send(JSON.stringify({body: 'added'}));
 });
 
 

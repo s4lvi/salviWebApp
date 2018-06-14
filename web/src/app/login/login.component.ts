@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
       this.service.login(this.user).subscribe(response => {
         this.loginError=false;
         console.log(response);
+        window.localStorage.setItem('salvihausToken', response['token']);
+        window.localStorage.setItem('loggedIn', "true");
         this.router.navigate(['../game']);
       }, err => {
         console.log(err);

@@ -1,3 +1,13 @@
 li {
   list-style-type: none;
 }
+
+.menu-left {
+	display:inline-block;
+	left: 10px;
+}
+.menu-right {
+	display:inline-block;
+	float:right;
+	text-align:right;
+}

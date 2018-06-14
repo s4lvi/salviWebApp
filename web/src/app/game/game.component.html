@@ -1,3 +1,10 @@
-<p>
-  game works!
-</p>
+<div class="game-output" #scrollBar>
+<p *ngFor="let message of messages">{{message.messageType == 'user' ? '> ' : ': '}}{{message.message}}</p>
+</div>
+<hr class="dashed">
+<div class="game-prompt-container">
+<form [formGroup]="form" (submit)="submit()" #gameForm="ngForm">
+	><input type="text" class="game-prompt" formControlName="gameInput" [(ngModel)]="gameInput">
+</form>
+</div>
+

@@ -1,0 +1,36 @@
+
+.game-output::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+.game-output::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 0 #000;
+	background-color: #000;
+}
+ 
+.game-output::-webkit-scrollbar-thumb {
+  border-radius:10px;
+  border: 1px solid #0f0;
+}
+
+
+.game-prompt-container {
+	font-size:14px;
+}
+.game-output {
+	height: 400px;
+	width:100%;
+	overflow-y:scroll;
+}
+
+.game-prompt {
+	padding-left:2px;
+	width:90%;
+	background-color: inherit;
+	border-style: none;
+	color: #0f0;
+}
+
+.game-prompt:focus {
+    outline-width: 0;
+}

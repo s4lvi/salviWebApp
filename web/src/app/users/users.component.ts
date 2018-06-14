@@ -15,6 +15,11 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUsers();
+  }
+  
+  getUsers() {
+   this.users = [];
     this.service.getUsers().subscribe(u => {
       for (var user in u) {
         this.users.push({
@@ -29,7 +34,11 @@ export class UsersComponent implements OnInit {
   }
   
   delete(userId: string) {
-    this.service.deleteUser(userId).subscribe();
+    this.service.deleteUser(userId).subscribe(res => {
+     
+      this.getUsers();
+   
+    });
   }
 
 }

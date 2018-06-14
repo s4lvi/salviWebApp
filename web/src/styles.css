@@ -29,6 +29,12 @@ hr {
 	color: #000;
 }
 
+.btn-small {
+	width: 12px;
+	height: 12px;
+	padding: 0;
+	line-height: 0;
+}
 .error-text {
 	color: #f00;
 }

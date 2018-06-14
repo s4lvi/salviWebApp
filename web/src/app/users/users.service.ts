@@ -30,8 +30,17 @@ export class UsersService {
       .map((res: Response) => res.json());
   }
   
+  isLoggedIn(username: string, token: string): boolean {
+    var tokenReq = JSON.stringify({username: username, token: token});
+    this.http.post(environment.serverUrl + '/api/login/check', tokenReq, this.options).map((res: Response) => {
+      if (res.status == 200) {return true;}
+      else {return false;}
+    });
+    return false;
+  }
+  
   deleteUser(userId: string): Observable<Object> {
-    return this.http.get(environment.serverUrl + '/api/users/' + userId + '/delete')
+    return this.http.delete(environment.serverUrl + '/api/users/' + userId )
       .map((res: Response) => res.json());
   }
   
